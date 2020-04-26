@@ -1,17 +1,15 @@
 .landing-cards {
   display: flex;
   justify-content: center;
+  margin: 25px 0 200px 0;
+
+  .card:hover {
+    filter: brightness(75%);
+    transform: scale(1.03);
+  }
   
   .hiking-img {
-    // @media (min-width:600px)  {
-    //   width: 25%;
-    // }
-
-    // @media (max-width:599px)  {
-    //   width: 40%;
-    // }
-
-    @media (min-width:320px)  { 
+    @media (min-width:100px)  { 
       /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ 
       width: 40%;
     }
@@ -33,20 +31,7 @@
     justify-content: space-between;
     padding-left: 0.75em;
 
-    // @media (min-width:900px)  {
-    //   padding-left: 0.75em;
-    //   width: 25%;
-    // }
-    // @media (max-width:899px)  {
-    //   padding-left: 0.5em;
-    //   width: 25%;
-    // }
-    // @media (max-width:599px)  {
-    //   padding-left: 0.4em;
-    //   width: 40%;
-    // }
-
-    @media (min-width:320px)  { 
+    @media (min-width:100px)  { 
       /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ 
       padding-left: 0.4em;
       width: 40%;

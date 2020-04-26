@@ -2,14 +2,13 @@ a {
   text-decoration: none; 
 }
 
-
 .header {
   .header-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 45px 25px 45px 25px;
+    padding: 45px 0px 45px 45px;
 
     .header-title {
       font-family: belweFont;
@@ -17,7 +16,11 @@ a {
     }
 
     .search-icon {
-      padding-right: 40px;
+      padding-right: 65px;
+    }
+
+    .search-icon:hover {
+      transform: scale(1.05);
     }
   }
 }

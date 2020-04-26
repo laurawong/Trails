@@ -1,5 +1,18 @@
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
+
 .whiteText {
   color: white;
+}
+
+.text {
+  font-family: Helvetica, Arial;
 }
 
 $text-sizes: (
@@ -84,7 +97,7 @@ $sizes: (
 }
 
 .link {
-  color: white;
+  color: gray;
   &:hover {
     color: #ffe263;
   }

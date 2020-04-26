@@ -9,10 +9,10 @@ class Landing extends Component {
   render() {
     return (
       <div class='landing-cards'>
-        <img class='hiking-img' src={hikingImg} alt="search icon" />
+        <img class='card hiking-img' src={hikingImg} alt="search icon" />
         <div class='cards-column'>
-          <img class='mountain-img' src={mountainImg1} alt="search icon" />
-          <img class='mountain-img' src={mountainImg2} alt="search icon" />
+          <img class='card mountain-img' src={mountainImg1} alt="search icon" />
+          <img class='card mountain-img' src={mountainImg2} alt="search icon" />
         </div>
       </div>
     );
