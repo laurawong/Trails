@@ -1,0 +1,96 @@
+.whiteText {
+  color: white;
+}
+
+$text-sizes: (
+  'small': 12px,
+  'base': 16px,
+  'medium': 18px,
+  'large': 24px,
+  'xlarge': 32px,
+  'xxlarge': 48px
+);
+
+@mixin m-textSize($size) {
+  // @if map-has-key($map: $text-sizes, $key: $size) {
+    font-size: $size;
+  // }
+}
+
+@each $name, $size in $text-sizes {
+  .text--#{$name} {
+    @include m-textSize($size);
+  }
+}
+
+$sizes: (
+  '--2': 48px,
+  '--1': 24px,
+  '--half': 12px,
+  '--base': 16px,
+  '--quarter': 6px
+);
+
+@each  $name, $size in $sizes {
+  .paddingY#{$name} {
+    padding: 0 $size;
+  }
+
+  .paddingX#{$name} {
+    padding: $size 0;
+  }
+
+  .paddingLeft#{$name} {
+    padding-left: $size;
+  }
+
+  .paddingRight#{$name} {
+    padding-right: $size;
+  }
+
+  .paddingTop#{$name} {
+    padding-top: $size;
+  }
+
+  .paddingBottom#{$name} {
+    padding-bottom: $size;
+  }
+}
+
+@each  $name, $size in $sizes {
+  .marginY#{$name} {
+    margin: 0 $size;
+  }
+
+  .marginX#{$name} {
+    margin: $size 0;
+  }
+
+  .marginLeft#{$name} {
+    margin-left: $size;
+  }
+
+  .marginRight#{$name} {
+    margin-right: $size;
+  }
+
+  .marginTop#{$name} {
+    margin-top: $size;
+  }
+
+  .marginBottom#{$name} {
+    margin-bottom: $size;
+  }
+}
+
+.link {
+  color: white;
+  &:hover {
+    color: #ffe263;
+  }
+}
+
+@font-face {
+  font-family: belweFont;
+  src: url(belwe-bold-bt.ttf);
+}

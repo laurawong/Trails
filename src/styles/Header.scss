@@ -1,0 +1,23 @@
+a {
+  text-decoration: none; 
+}
+
+
+.header {
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 45px 25px 45px 25px;
+
+    .header-title {
+      font-family: belweFont;
+      color: black;
+    }
+
+    .search-icon {
+      padding-right: 40px;
+    }
+  }
+}
