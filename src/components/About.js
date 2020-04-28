@@ -8,7 +8,7 @@ class About extends Component {
       <div id='about' class='about-container'>
         <div class='about-text text'>
           <h1>
-            Hello 👋🏻
+            Hello <span role='img' aria-label="wave">👋🏻</span>
           </h1>
           <p>
             My name is Laura. This is my side project powered by React, Flask and my love for hiking.

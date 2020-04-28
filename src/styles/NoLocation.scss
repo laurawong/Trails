@@ -1,0 +1,32 @@
+.no-location-container {
+  text-align: center;
+
+  .no-location-img-container {
+    margin: 0 auto;
+    position: relative;
+    @media (min-width:100px)  { 
+      /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ 
+      width: 75%;
+    }
+    @media (min-width:1025px)  { 
+      /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
+      width: 60%;
+    }
+    @media (min-width:1281px)  { 
+      /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+      width: 35%;
+    }
+
+    .no-location-img {
+      width: 100%;
+    }
+  }
+
+  .no-location-img-text {
+    position: absolute;
+    font-size: 32px;
+    top: 20%;
+    left: 20%
+
+  }
+}
