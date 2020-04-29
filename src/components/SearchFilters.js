@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {AiOutlineControl} from 'react-icons/ai';
 import '../styles/SearchFilters.scss'
 import Select from 'react-select'
+import Slider from 'react-rangeslider'
+import 'react-rangeslider/lib/index.css'
 
 class SearchFilters extends Component {
   constructor() {
@@ -10,13 +12,15 @@ class SearchFilters extends Component {
     this.state = {
       showMenu: false,
       sortSelectValue: 'rating',
-      isDescending: true
+      isDescending: true,
+      distanceSliderValue: 100
     };
     
     this.showMenu = this.showMenu.bind(this);
     this.handleSubmitSearch = this.handleSubmitSearch.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSortSelectChange = this.handleSortSelectChange.bind(this);
+    this.handleDistanceSliderChange = this.handleDistanceSliderChange.bind(this);
   }
   
   showMenu(event) {
@@ -30,7 +34,8 @@ class SearchFilters extends Component {
 
     const searchFilters = {
       sortSelectValue: this.state.sortSelectValue,
-      isDescending: this.state.isDescending
+      isDescending: this.state.isDescending,
+      distanceSliderValue: this.state.distanceSliderValue
     }
 
     onSearchSubmit(searchFilters);
@@ -68,6 +73,12 @@ class SearchFilters extends Component {
       sortSelectValue: value
     });
   }
+
+  handleDistanceSliderChange = value => {
+    this.setState({
+      distanceSliderValue: value
+    })
+  };
 
   render() {
     const options = [
@@ -120,6 +131,15 @@ class SearchFilters extends Component {
                           onChange={this.handleInputChange} />
                       </label>
                     </div>
+                  </div>
+                  <div class='slider'>
+                    <span class='distance-slider-label'>Distance: {this.state.distanceSliderValue} mi </span>
+                    <Slider
+                      min={0}
+                      max={100}
+                      value={this.state.distanceSliderValue}
+                      onChange={this.handleDistanceSliderChange}
+                    />
                   </div>
                   <button type='submit'> Submit </button>
                   <button> Menu item 2 </button>

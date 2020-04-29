@@ -57,3 +57,31 @@
     color: #ffe263;
   } 
 } 
+
+.slider {
+  display: flex;
+  justify-content: space-between;
+
+  .distance-slider-label {
+    padding-top: 15px;
+  }
+
+  .rangeslider-horizontal {
+    width: 80%;
+    box-shadow: none;
+    .rangeslider__fill {
+      background-color: #ffe263;
+      box-shadow: none;
+    }
+
+    .rangeslider__handle {
+      box-shadow: none;
+      outline: none;
+      width: 20px;
+      height: 20px;
+      &:after {
+        display: none;
+      }
+    }
+  }
+}

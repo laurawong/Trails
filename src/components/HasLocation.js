@@ -62,15 +62,17 @@ class HasLocation extends Component {
 
   onSearchSubmit = searchFilters => {
     // Sorting hikes
-    const sortedTrails = this.state.trails.sort(this.sortCompare(searchFilters.sortSelectValue));
+    let resultTrails = this.state.trails.sort(this.sortCompare(searchFilters.sortSelectValue));
     if (searchFilters.isDescending) {
-      sortedTrails.reverse();
+      resultTrails.reverse();
     }
-    
+
+    // Filter by distance
+    resultTrails = resultTrails.filter(trail => trail.length <= searchFilters.distanceSliderValue)
 
     this.setState({
-      trails: sortedTrails,
-      items: sortedTrails.slice(0, 10)
+      trails: resultTrails,
+      items: resultTrails.slice(0, 10)
     }, () => {
       this.hikesContainer.current.updateTrailData();
     });
