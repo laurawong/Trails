@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../styles/Hike.scss'
 import '../styles/trails-patterns.scss';
 import StarRatings from 'react-star-ratings';
+import noImg from '../styles/images/No_Image_Available.jpg'
 
 class Hike extends Component {
   constructor(props) {
@@ -18,14 +19,18 @@ class Hike extends Component {
     return (
       <div class='hike-container'>
         <div class='hike-img-container'>
-          <img class='hike-img' src={this.props.trail.imgMedium} alt="hike" />
+          {this.props.trail.imgMedium
+            ? <img class='hike-img' src={this.props.trail.imgMedium} alt="hike" />
+            : <img class='hike-img' src={noImg} alt="Not available" />
+          }
+          
         </div>
         <div class='hike-text'>
           <a href="#" class='hike-title'>
             <p class='hike-name'>{this.props.trail.name}</p>
             <p class='hike-location'>{this.props.trail.location}</p>
           </a>
-          <p>
+          <div class='hike-stats'>
             <StarRatings
               rating={this.props.trail.stars}
               starRatedColor="black"
@@ -35,9 +40,12 @@ class Hike extends Component {
               starSpacing='1px'
             /> 
             - {this.difficulty[this.props.trail.difficulty]} - {this.props.trail.length} mi - {this.props.trail.ascent} ft
-          </p>
+          </div>
           <p>{this.props.trail.summary}</p>
-          <p>Trail condition: {this.props.trail.conditionDetails} (last updated on {this.props.trail.conditionDate})</p>
+          {this.props.trail.conditionDetails
+            ? <p>Trail condition: {this.props.trail.conditionDetails} (last updated on {this.props.trail.conditionDate})</p>
+            : <p>Trail condition: unknown</p>
+          }
         </div>
       </div>
     );

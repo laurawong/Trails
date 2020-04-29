@@ -17,9 +17,10 @@ class Nearby extends Component {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(position => {
         this.setState({
-            latitude:  position.coords.latitude,
-            longitude: position.coords.longitude
+          latitude:  position.coords.latitude,
+          longitude: position.coords.longitude
         });
+        // console.log(this.state.latitude);
       });
     }
   }

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import '../styles/HasLocation.scss'
 import '../styles/trails-patterns.scss';
 import Footer from './Footer';
-import Hike from './Hike';
+import HikesContainer from './HikesContainer';
+import SearchFilters from './SearchFilters';
 
 class HasLocation extends Component {
   constructor(props) {
@@ -12,18 +13,31 @@ class HasLocation extends Component {
       longitude: this.props.longitude,
       error: null,
       isLoaded: false,
-      trails: []
+      trails: [],
+      items: []
     };
+
+    this.baseURL = 'https://www.hikingproject.com/data/get-trails?'
+    this.latURL = 'lat=' + this.state.latitude
+    this.lonURL = '&lon=' + this.state.longitude
+    this.defaultsURL = '&maxResults=50&maxDistance=10'
+    this.key = '&key=200411841-dde103263e756ea031802ede98f125c9'
+    this.apiReq = this.baseURL + this.latURL + this.lonURL + this.defaultsURL + this.key;
+    console.log(this.apiReq);
+
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    this.hikesContainer = React.createRef();
   }
 
   componentDidMount() {
-    fetch('https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=200411841-dde103263e756ea031802ede98f125c9')
+    fetch(this.apiReq)
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            trails: result.trails
+            trails: result.trails,
+            items: result.trails.slice(0, 10)
           });
         },
         (error) => {
@@ -35,23 +49,46 @@ class HasLocation extends Component {
       )
   }
 
-  render() {
-    const { error, isLoaded, trails } = this.state;
+  sortCompare = prop => {
+    return function(a, b) {  
+      if (a[prop] > b[prop]) {  
+        return prop === 'difficulty' ? -1 : 1;  
+      } else if (a[prop] < b[prop]) {  
+        return prop === 'difficulty' ? 1 : -1; 
+      }  
+      return 0;  
+    }  
+  } 
 
-    const items = [];
-
-    for (var i = 0; i < trails.length; i++) {
-      items.push(<Hike trail={trails[i]} />)
+  onSearchSubmit = searchFilters => {
+    // Sorting hikes
+    const sortedTrails = this.state.trails.sort(this.sortCompare(searchFilters.sortSelectValue));
+    if (searchFilters.isDescending) {
+      sortedTrails.reverse();
     }
+    
+
+    this.setState({
+      trails: sortedTrails,
+      items: sortedTrails.slice(0, 10)
+    }, () => {
+      this.hikesContainer.current.updateTrailData();
+    });
+  }
+
+
+  render() {
+    const { error, isLoaded, trails, items} = this.state;
 
     if (error) {
-      return <div>Error: {error.message}</div>;
+      return <div class='loading-text'>Error: {error.message}</div>;
     } else if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <div class='loading-text'>Loading...</div>;
     } else {
       return (
         <div>
-          {items}
+          <SearchFilters onSearchSubmit={this.onSearchSubmit}/>
+          <HikesContainer ref={this.hikesContainer} trails={trails} items={items}/>
           <Footer/>
         </div>
       );
