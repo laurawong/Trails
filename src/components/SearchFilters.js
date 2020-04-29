@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {AiOutlineControl} from 'react-icons/ai';
+import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
 import '../styles/SearchFilters.scss'
 import Select from 'react-select'
 import Slider from 'react-rangeslider'
@@ -13,14 +15,20 @@ class SearchFilters extends Component {
       showMenu: false,
       sortSelectValue: 'rating',
       isDescending: true,
-      distanceSliderValue: 100
+      distanceSliderValue: 100,
+      elevationSliderValue: 12000,
+      ratingSliderValue: 0,
+      isEasy: true,
+      isMed: true,
+      isDiff: true,
+      isVDiff: true
     };
     
     this.showMenu = this.showMenu.bind(this);
     this.handleSubmitSearch = this.handleSubmitSearch.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSortSelectChange = this.handleSortSelectChange.bind(this);
-    this.handleDistanceSliderChange = this.handleDistanceSliderChange.bind(this);
+    this.handleSliderChange = this.handleSliderChange.bind(this);
   }
   
   showMenu(event) {
@@ -32,10 +40,19 @@ class SearchFilters extends Component {
     event.preventDefault(); 
     const { onSearchSubmit } = this.props;
 
+    let difficulties = new Set()
+    this.state.isEasy ? difficulties.add('green') : difficulties.delete('green')
+    this.state.isMed ? difficulties.add('blue') : difficulties.delete('blue')
+    this.state.isDiff ? difficulties.add('black') : difficulties.delete('black')
+    this.state.isVDiff ? difficulties.add('dblack') : difficulties.delete('dblack')
+
     const searchFilters = {
       sortSelectValue: this.state.sortSelectValue,
       isDescending: this.state.isDescending,
-      distanceSliderValue: this.state.distanceSliderValue
+      distanceSliderValue: this.state.distanceSliderValue,
+      elevationSliderValue: this.state.elevationSliderValue,
+      ratingSliderValue: this.state.ratingSliderValue,
+      difficulties: difficulties
     }
 
     onSearchSubmit(searchFilters);
@@ -43,28 +60,11 @@ class SearchFilters extends Component {
 
   handleInputChange(event) {
     const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-    let value;
-
-    switch (name) {
-      case 'isDescending':
-        value = target.checked
-        break;
-      case 'sortSelectValue':
-        value = target.value;
-        break;
-
-      default:
-        console.log("wat");
-        break;
-    }
-
     this.setState({
-      [name]: value
-    }, () => {
-      console.log("changed state ", this.state[name])
+        [name]: value
     });
-
   }
 
   handleSortSelectChange(event) {
@@ -74,9 +74,12 @@ class SearchFilters extends Component {
     });
   }
 
-  handleDistanceSliderChange = value => {
+  handleSliderChange = (name, val) => {
+    if (name === 'ratingSliderValue')
+      val = val.toFixed(1)
+
     this.setState({
-      distanceSliderValue: value
+      [name]: val
     })
   };
 
@@ -123,27 +126,97 @@ class SearchFilters extends Component {
                     <div class='isDescending-container'>
                       <label>
                         Descending?
-                        <input
-                          class='isDescending-checkbox'
-                          name="isDescending"
-                          type="checkbox"
-                          checked={this.state.isDescending}
-                          onChange={this.handleInputChange} />
+                          <Checkbox
+                            className='isDescending-checkbox'
+                            name="isDescending"
+                            checked={this.state.isDescending}
+                            onChange={this.handleInputChange}
+                            inputProps={{ 'aria-label': 'secondary checkbox' }}
+                          />
                       </label>
                     </div>
                   </div>
-                  <div class='slider'>
-                    <span class='distance-slider-label'>Distance: {this.state.distanceSliderValue} mi </span>
-                    <Slider
-                      min={0}
-                      max={100}
-                      value={this.state.distanceSliderValue}
-                      onChange={this.handleDistanceSliderChange}
-                    />
+                  <div class='search-sliders'>
+                    <div class='distance-slider slider'>
+                      <span class='distance-slider-label slider-label'>Distance: {this.state.distanceSliderValue} mi </span>
+                      <Slider
+                        min={0}
+                        max={100}
+                        value={this.state.distanceSliderValue}
+                        onChange={(e) => this.handleSliderChange('distanceSliderValue', e)}
+                      />
+                    </div>
+                    <div class='elevation-slider slider'>
+                      <span class='elevation-slider-label slider-label'>Elevation: {this.state.elevationSliderValue} ft </span>
+                      <Slider
+                        min={0}
+                        max={12000}
+                        value={this.state.elevationSliderValue}
+                        onChange={(e) => this.handleSliderChange('elevationSliderValue', e)}
+                      />
+                    </div>
+                    <div class='rating-slider slider'>
+                      <span class='rating-slider-label slider-label'>Rating: {this.state.ratingSliderValue} stars </span>
+                      <Slider
+                        min={0.0}
+                        max={5.0}
+                        step={0.1}
+                        value={this.state.ratingSliderValue}
+                        onChange={(e) => this.handleSliderChange('ratingSliderValue', e)}
+                      />
+                    </div>
                   </div>
-                  <button type='submit'> Submit </button>
-                  <button> Menu item 2 </button>
-                  <button> Menu item 3 </button>
+                  <div class='difficulty-checkboxes'>
+                    <div class='isEasy-container'>
+                        <label>
+                          Easy
+                            <Checkbox
+                              className='material-checkbox'
+                              name="isEasy"
+                              checked={this.state.isEasy}
+                              onChange={this.handleInputChange}
+                              inputProps={{ 'aria-label': 'secondary checkbox' }}
+                            />
+                        </label>
+                      </div>
+                      <div class='isMed-container'>
+                        <label>
+                          Intermediate
+                            <Checkbox
+                              className='material-checkbox'
+                              name="isMed"
+                              checked={this.state.isMed}
+                              onChange={this.handleInputChange}
+                              inputProps={{ 'aria-label': 'secondary checkbox' }}
+                            />
+                        </label>
+                      </div>
+                      <div class='isDiff-container'>
+                        <label>
+                          Difficult
+                            <Checkbox
+                              className='material-checkbox'
+                              name="isDiff"
+                              checked={this.state.isDiff}
+                              onChange={this.handleInputChange}
+                              inputProps={{ 'aria-label': 'secondary checkbox' }}
+                            />
+                        </label>
+                      </div>
+                      <div class='isVDiff-container'>
+                        <label>
+                          Very Difficult
+                            <Checkbox
+                              className='material-checkbox'
+                              name="isVDiff"
+                              checked={this.state.isVDiff}
+                              onChange={this.handleInputChange}
+                              inputProps={{ 'aria-label': 'secondary checkbox' }}
+                            />
+                        </label>
+                      </div>
+                  </div>  
+                  <Button type='submit' variant="contained">Filter</Button>
                 </form>
               </div>
             )

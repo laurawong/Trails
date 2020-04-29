@@ -14,6 +14,7 @@ class HasLocation extends Component {
       error: null,
       isLoaded: false,
       trails: [],
+      displayTrails: [],
       items: []
     };
 
@@ -37,6 +38,7 @@ class HasLocation extends Component {
           this.setState({
             isLoaded: true,
             trails: result.trails,
+            displayTrails: result.trails,
             items: result.trails.slice(0, 10)
           });
         },
@@ -67,11 +69,14 @@ class HasLocation extends Component {
       resultTrails.reverse();
     }
 
-    // Filter by distance
+    // Filter by distance, elevation and rating
     resultTrails = resultTrails.filter(trail => trail.length <= searchFilters.distanceSliderValue)
+    resultTrails = resultTrails.filter(trail => trail.ascent <= searchFilters.elevationSliderValue)
+    resultTrails = resultTrails.filter(trail => trail.stars >= searchFilters.ratingSliderValue)
+    resultTrails = resultTrails.filter(trail => searchFilters.difficulties.has(trail.difficulty))
 
     this.setState({
-      trails: resultTrails,
+      displayTrails: resultTrails,
       items: resultTrails.slice(0, 10)
     }, () => {
       this.hikesContainer.current.updateTrailData();
@@ -80,7 +85,7 @@ class HasLocation extends Component {
 
 
   render() {
-    const { error, isLoaded, trails, items} = this.state;
+    const { error, isLoaded, displayTrails, items} = this.state;
 
     if (error) {
       return <div class='loading-text'>Error: {error.message}</div>;
@@ -90,7 +95,7 @@ class HasLocation extends Component {
       return (
         <div>
           <SearchFilters onSearchSubmit={this.onSearchSubmit}/>
-          <HikesContainer ref={this.hikesContainer} trails={trails} items={items}/>
+          <HikesContainer ref={this.hikesContainer} trails={displayTrails} items={items}/>
           <Footer/>
         </div>
       );

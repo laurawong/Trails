@@ -26,10 +26,10 @@ class Hike extends Component {
           
         </div>
         <div class='hike-text'>
-          <a href="#" class='hike-title'>
+          <div class='hike-title'>
             <p class='hike-name'>{this.props.trail.name}</p>
             <p class='hike-location'>{this.props.trail.location}</p>
-          </a>
+          </div>
           <div class='hike-stats'>
             <StarRatings
               rating={this.props.trail.stars}
