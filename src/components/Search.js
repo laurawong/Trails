@@ -64,7 +64,9 @@ class Search extends Component {
     const {latitude, longitude} = this.state;
     const hasLocation = latitude && longitude;
     const searchBoxStyle = {
-      margin: hasLocation ? '20px 0px' : '10em 0px'
+      margin: hasLocation 
+      ? '20px 0px' 
+      : '4em 0px'
     }
 
     return (

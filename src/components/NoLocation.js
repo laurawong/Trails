@@ -13,9 +13,9 @@ class NoLocation extends Component {
             <img class='no-location-img' src={hikingImg} alt="enable location" />
             <h2 class='no-location-img-text image-text'> Darn... </h2>
           </div>
-          <h2 class='text'> Please enable your location to see nearby trails. </h2>
+          <h2 class='text paddingBottom--1'> Please enable your location to see nearby trails. </h2>
         </div>
-        <Footer className='footer-bottom'/>
+        <Footer/>
       </div>
     );
   }
