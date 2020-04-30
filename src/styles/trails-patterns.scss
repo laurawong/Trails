@@ -23,9 +23,7 @@ $text-sizes: (
 );
 
 @mixin m-textSize($size) {
-  @if map-has-key($map: $text-sizes, $key: $size) {
-    font-size: $size;
-  }
+  font-size: $size;
 }
 
 @each $name, $size in $text-sizes {
