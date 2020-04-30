@@ -27,11 +27,16 @@ class HasLocation extends Component {
     console.log(this.apiReq);
 
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    this.updateLocation = this.updateLocation.bind(this);
     this.hikesContainer = React.createRef();
   }
 
   componentDidMount() {
-    fetch(this.apiReq)
+    this.getHikes(this.apiReq);
+  }
+
+  getHikes = apiReq => {
+    fetch(apiReq)
       .then(res => res.json())
       .then(
         (result) => {
@@ -49,6 +54,23 @@ class HasLocation extends Component {
           });
         }
       )
+  }
+
+  updateLocation = () => {
+    this.setState({
+      latitude: this.props.latitude,
+      longitude: this.props.longitude,
+      error: null,
+      isLoaded: false,
+      trails: [],
+      displayTrails: [],
+      items: []
+    }, () => {
+      this.latURL = 'lat=' + this.state.latitude
+      this.lonURL = '&lon=' + this.state.longitude
+      this.apiReq = this.baseURL + this.latURL + this.lonURL + this.defaultsURL + this.key;
+      this.getHikes(this.apiReq);
+    });
   }
 
   sortCompare = prop => {

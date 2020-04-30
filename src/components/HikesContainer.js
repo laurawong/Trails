@@ -47,9 +47,12 @@ class HikesContainer extends Component {
   }
 
   render() {
+    const hasTrails = this.state.trails.length > 0;
+
     return (
       <div class='hikes-container'>
-        <InfiniteScroll
+        {hasTrails?
+        (<InfiniteScroll
           dataLength={this.state.items.length}
           next={this.fetchMoreData}
           hasMore={this.state.hasMoreTrails}
@@ -61,7 +64,14 @@ class HikesContainer extends Component {
           {this.state.items.map((i) => (
             <Hike key={i.id} trail={i} />
           ))}
-        </InfiniteScroll>
+        </InfiniteScroll>) :
+
+        (<div>
+          <div class='loading-text'> No hikes found...</div>
+          <div class='loading-text'> Try searching in another city</div>
+        </div>)
+        }
+        
       </div>
     );
   }

@@ -1,0 +1,35 @@
+.searchbox-container {
+  // padding: 20px 0px;
+
+  .MuiPaper-root {
+    width: 40%;
+    margin: 0 auto;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.54);
+    box-shadow: none;
+
+    .MuiInputBase-root {
+      width: 90%;
+
+      @media (min-width:100px) {
+        height: 1em;
+      }
+    
+      @media (min-width:700px) {
+        height: 4em;
+      }
+
+      .MuiInputBase-input {
+        font-size: 16px;
+        font-family: Helvetica, Arial, sans-serif;
+        padding-left: 20px;
+      }
+    }
+
+    .MuiIconButton-root {
+      width: 10%;
+    }
+
+  }
+
+}

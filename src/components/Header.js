@@ -12,7 +12,7 @@ class Header extends Component {
           <a href="/" class="header-title text--xlarge">
             Trails
           </a>
-          <a href="/">
+          <a href="/search">
             <img class='search-icon' src={searchIcon} alt="search icon" />
           </a>
         </div>
