@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../styles/Nearby.scss'
 import '../styles/trails-patterns.scss';
 import NoLocation from './NoLocation';
 import HasLocation from './HasLocation';
@@ -20,24 +19,21 @@ class Nearby extends Component {
           latitude:  position.coords.latitude,
           longitude: position.coords.longitude
         });
-        // console.log(this.state.latitude);
       });
     }
   }
 
   render() {
-    return (
-      <NearbyLanding latitude={this.state.latitude} longitude={this.state.longitude}/>
-    );
-  }
-}
+    const hasLocation = this.state.latitude && this.state.longitude;
 
-function NearbyLanding(props) {
-  const hasLocation = props.latitude && props.longitude;
-  if (hasLocation) {
-    return <HasLocation latitude={props.latitude} longitude={props.longitude}/>;
-  } else {
-    return <NoLocation/>
+    return (
+      <div>
+        {hasLocation
+        ? <HasLocation latitude={this.state.latitude} longitude={this.state.longitude}/>
+        : <NoLocation/>
+        }
+      </div>
+    );
   }
 }
 

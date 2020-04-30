@@ -23,7 +23,6 @@ class Hike extends Component {
             ? <img class='hike-img' src={this.props.trail.imgMedium} alt="hike" />
             : <img class='hike-img' src={noImg} alt="Not available" />
           }
-          
         </div>
         <div class='hike-text'>
           <div class='hike-title'>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../styles/HasLocation.scss'
 import '../styles/trails-patterns.scss';
 import Footer from './Footer';
 import HikesContainer from './HikesContainer';
@@ -22,9 +21,8 @@ class HasLocation extends Component {
     this.latURL = 'lat=' + this.state.latitude
     this.lonURL = '&lon=' + this.state.longitude
     this.defaultsURL = '&maxResults=50&maxDistance=10'
-    this.key = '&key=200411841-dde103263e756ea031802ede98f125c9'
+    this.key = '&key=' + process.env.REACT_APP_HIKING_API_KEY
     this.apiReq = this.baseURL + this.latURL + this.lonURL + this.defaultsURL + this.key;
-    console.log(this.apiReq);
 
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.updateLocation = this.updateLocation.bind(this);
@@ -32,10 +30,10 @@ class HasLocation extends Component {
   }
 
   componentDidMount() {
-    this.getHikes(this.apiReq);
+    this.getHikesReq(this.apiReq);
   }
 
-  getHikes = apiReq => {
+  getHikesReq = apiReq => {
     fetch(apiReq)
       .then(res => res.json())
       .then(
@@ -69,7 +67,7 @@ class HasLocation extends Component {
       this.latURL = 'lat=' + this.state.latitude
       this.lonURL = '&lon=' + this.state.longitude
       this.apiReq = this.baseURL + this.latURL + this.lonURL + this.defaultsURL + this.key;
-      this.getHikes(this.apiReq);
+      this.getHikesReq(this.apiReq);
     });
   }
 
@@ -91,7 +89,7 @@ class HasLocation extends Component {
       resultTrails.reverse();
     }
 
-    // Filter by distance, elevation and rating
+    // Filter by distance, elevation, rating and difficulty
     resultTrails = resultTrails.filter(trail => trail.length <= searchFilters.distanceSliderValue)
     resultTrails = resultTrails.filter(trail => trail.ascent <= searchFilters.elevationSliderValue)
     resultTrails = resultTrails.filter(trail => trail.stars >= searchFilters.ratingSliderValue)

@@ -51,27 +51,26 @@ class HikesContainer extends Component {
 
     return (
       <div class='hikes-container'>
-        {hasTrails?
-        (<InfiniteScroll
-          dataLength={this.state.items.length}
-          next={this.fetchMoreData}
-          hasMore={this.state.hasMoreTrails}
-          loader={<Loader/>}
-          endMessage={
-            <div class='end-text'>No more hikes...</div>
-          }
-        >
-          {this.state.items.map((i) => (
-            <Hike key={i.id} trail={i} />
-          ))}
-        </InfiniteScroll>) :
+        {hasTrails 
+        ? (<InfiniteScroll
+            dataLength={this.state.items.length}
+            next={this.fetchMoreData}
+            hasMore={this.state.hasMoreTrails}
+            loader={<Loader/>}
+            endMessage={
+              <div class='end-text'>No more hikes...</div>
+            }
+          >
+            {this.state.items.map((i) => (
+              <Hike key={i.id} trail={i} />
+            ))}
+        </InfiniteScroll>) 
 
-        (<div>
-          <div class='loading-text'> No hikes found...</div>
-          <div class='loading-text'> Try searching in another city</div>
-        </div>)
+        :(<div>
+            <div class='loading-text'> No hikes found...</div>
+            <div class='loading-text'> Try searching in another city</div>
+          </div>)
         }
-        
       </div>
     );
   }

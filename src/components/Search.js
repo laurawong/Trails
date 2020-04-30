@@ -47,13 +47,10 @@ class Search extends Component {
 
     this.state.geocoder.geocode({ 'address': address}, (results, status) => {
       if (status === 'OK') {
-        console.log(results[0].geometry.location.lat())
-        console.log(results[0].geometry.location.lng())
         this.setState({
           latitude: results[0].geometry.location.lat(),
           longitude: results[0].geometry.location.lng()
         }, () => {
-          console.log("ref", this.hasLocation.current)
           if (this.hasLocation.current != null)
             this.hasLocation.current.updateLocation();
         }); 
