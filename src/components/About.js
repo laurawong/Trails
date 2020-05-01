@@ -13,7 +13,7 @@ class About extends Component {
             Hello <span role='img' aria-label="wave"><img class='wave-icon' src={waveEmoji} alt="wave emoji" /></span>
           </h1>
           <p>
-            My name is Laura. This is my side project powered by React and my love for hiking.
+            My name is Laura. This is my <a class='link' href='https://github.com/laurawong/Trails'>project</a> powered by React and my love for hiking.
           </p>
           <p>
             Trail data is from the <a class='link' href='https://www.hikingproject.com/data'>Hiking Project</a>.
