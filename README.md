@@ -5,11 +5,11 @@ This project is powered by React and my love for hiking.
 The hiking data is from the [Hiking Project API](https://www.hikingproject.com/data).
 
 ## Features
-* Searching hikes by city
+* Search hikes by city
   * Uses Google's Geocoding API
-* Searching hikes by user's current geolocation
+* Search hikes by user's current geolocation
   * Uses Geolocation API
-* Filtering/sorting hikes
+* Filter/sort hikes
 
 ## Demo
 
