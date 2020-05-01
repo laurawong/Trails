@@ -1,3 +1,5 @@
+## About
+
 This project is powered by React and my love for hiking.
 
 The hiking data is from the [Hiking Project API](https://www.hikingproject.com/data).
@@ -8,6 +10,14 @@ The hiking data is from the [Hiking Project API](https://www.hikingproject.com/d
 * Searching hikes by user's current geolocation
   * Uses Geolocation API
 * Filtering/sorting hikes
+
+## Demo
+
+[Live demo](https://mytrails.herokuapp.com/)
+
+![Landing page](/src/styles/images/landing-demo.png)
+
+![Search page](/src/styles/images/search-demo.png)
 
 ## Available Scripts
 
